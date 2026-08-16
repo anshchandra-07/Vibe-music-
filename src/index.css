@@ -1,0 +1,373 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Share+Tech+Mono&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #050505;
+    color: #f5f5f5;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow: hidden;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom focus outline */
+  button:focus-visible, 
+  a:focus-visible, 
+  input:focus-visible {
+    outline: 2px solid var(--accent-glow, rgba(255, 255, 255, 0.4));
+    outline-offset: 4px;
+  }
+}
+
+@layer utilities {
+  .font-mono-retro {
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  /* CRT Glow Effects */
+  .glow-text {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+  }
+
+  .glow-box {
+    box-shadow: 0 0 20px var(--accent-glow, rgba(255, 255, 255, 0.05)),
+                inset 0 0 10px var(--accent-glow, rgba(255, 255, 255, 0.02));
+  }
+
+  /* Custom scrollbar for sidebar panels */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 99px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* -------------------------------------------------------------
+ * 1. Retro Analog Screens (Scanlines, Vignette, Noise Overlay)
+ * ------------------------------------------------------------- */
+
+/* Film Grain Simulation */
+.noise-overlay {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background: transparent url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZUZpbHRlciI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOCIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZUZpbHRlcikiLz48L3N2Zz4=') repeat;
+  opacity: 0.025; /* Very subtle, non-intrusive */
+  pointer-events: none;
+  z-index: 9999;
+  animation: noise-move 0.18s infinite steps(6);
+}
+
+
+@keyframes noise-move {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-0.5%, -1.5%); }
+  20% { transform: translate(-1.5%, 0.5%); }
+  30% { transform: translate(1%, -1%); }
+  40% { transform: translate(-1%, 2.5%); }
+  50% { transform: translate(-0.5%, -0.5%); }
+  60% { transform: translate(1.5%, 0.5%); }
+  70% { transform: translate(-1.5%, 0.5%); }
+  80% { transform: translate(1%, -1%); }
+  90% { transform: translate(-1%, 2.5%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* TV Scanline overlay */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.3) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.08; /* Gentle scanner visual feel */
+}
+
+/* Screen Vignette for cinematic depth */
+.vignette {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle,
+    transparent 45%,
+    rgba(0, 0, 0, 0.85) 150%
+  );
+  z-index: 9997;
+  pointer-events: none;
+}
+
+/* CRT Screen Flicker */
+.screen-flicker {
+  animation: crt-flicker 0.15s infinite;
+}
+
+@keyframes crt-flicker {
+  0% { opacity: 0.995; }
+  50% { opacity: 1; }
+  100% { opacity: 0.995; }
+}
+
+/* -------------------------------------------------------------
+ * 2. Background Dynamic Ambiance
+ * ------------------------------------------------------------- */
+.ambient-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  background: radial-gradient(circle at 50% 50%, #0e0a1c 0%, #040307 75%, #010103 100%);
+}
+
+.ambient-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center center;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.8) 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.8) 20%, transparent 80%);
+  pointer-events: none;
+}
+
+.ambient-blob {
+  position: absolute;
+  width: 45vw;
+  height: 45vw;
+  border-radius: 50%;
+  filter: blur(140px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transition: background-color 3s ease, transform 0.15s ease-out, opacity 0.15s ease-out;
+  /* Music-reactive scale and opacity */
+  transform: scale(calc(var(--music-pulse, 1) * 1.06));
+  opacity: calc(var(--music-pulse, 1) * 0.1);
+}
+
+.blob-1 {
+  top: -10%;
+  left: 10%;
+  animation: float-blob-1 30s infinite alternate ease-in-out;
+}
+
+.blob-2 {
+  bottom: -10%;
+  right: 10%;
+  animation: float-blob-2 35s infinite alternate ease-in-out;
+}
+
+@keyframes float-blob-1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(8vw, 12vh) scale(1.15); }
+  100% { transform: translate(-4vw, 6vh) scale(0.9); }
+}
+
+@keyframes float-blob-2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-10vw, -8vh) scale(1.2); }
+  100% { transform: translate(5vw, 4vh) scale(0.85); }
+}
+
+/* -------------------------------------------------------------
+ * 3. Utility Animations & Panels
+ * ------------------------------------------------------------- */
+
+/* Glassmorphism panel styling */
+.glass-panel {
+  background: rgba(8, 8, 8, 0.72);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7);
+  transition: border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.glass-panel-glow {
+  border: 1px solid rgba(var(--accent-rgb, 255, 255, 255), 0.12);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45),
+              inset 0 0 16px rgba(var(--accent-rgb, 255, 255, 255), 0.02);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-panel-hover:hover {
+  background: rgba(14, 14, 14, 0.78);
+  border-color: rgba(var(--accent-rgb, 255, 255, 255), 0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7),
+              inset 0 0 10px rgba(var(--accent-rgb, 255, 255, 255), 0.03);
+}
+
+/* -------------------------------------------------------------
+ * 4. Vinyl Record Player Styling
+ * ------------------------------------------------------------- */
+.vinyl-record {
+  background: radial-gradient(
+    circle at center,
+    #080808 0%,
+    #181818 30%,
+    #0d0d0d 31%,
+    #1c1c1c 55%,
+    #080808 100%
+  );
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.vinyl-grooves {
+  background: repeating-radial-gradient(
+    circle at center,
+    transparent,
+    transparent 1.5px,
+    rgba(255, 255, 255, 0.02) 2.5px,
+    transparent 4px
+  );
+}
+
+.vinyl-glare {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255, 255, 255, 0.035) 45deg,
+    transparent 90deg,
+    transparent 180deg,
+    rgba(255, 255, 255, 0.035) 225deg,
+    transparent 270deg,
+    transparent 360deg
+  );
+}
+
+.animate-spin-slow {
+  animation: spin-vinyl 3s linear infinite;
+}
+
+.glow-text-soft {
+  text-shadow: 0 0 12px rgba(var(--accent-rgb, 255, 255, 255), 0.35);
+  transition: text-shadow 0.5s ease;
+}
+
+@keyframes spin-vinyl {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Interactive custom track seeking slider */
+input[type="range"].progress-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"].progress-slider:focus {
+  outline: none;
+}
+
+/* Slider Track */
+input[type="range"].progress-slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  transition: background 0.2s ease;
+}
+
+input[type="range"].progress-slider:hover::-webkit-slider-runnable-track {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Slider Thumb */
+input[type="range"].progress-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background: var(--accent-glow, #f5f5f5);
+  margin-top: -3px;
+  box-shadow: 0 0 12px var(--accent-glow, rgba(255, 255, 255, 0.8));
+  opacity: 0.75;
+  transition: opacity 0.15s ease, transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+input[type="range"].progress-slider:hover::-webkit-slider-thumb {
+  opacity: 1;
+  transform: scale(1.35);
+}
+
+input[type="range"].progress-slider:active::-webkit-slider-thumb {
+  transform: scale(1.5);
+}
+
+/* Firefox Specifics */
+input[type="range"].progress-slider::-moz-range-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+input[type="range"].progress-slider::-moz-range-thumb {
+  height: 10px;
+  width: 10px;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent-glow, #f5f5f5);
+  box-shadow: 0 0 12px var(--accent-glow, rgba(255, 255, 255, 0.8));
+  opacity: 0.75;
+  transition: opacity 0.15s ease, transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+input[type="range"].progress-slider:hover::-moz-range-thumb {
+  opacity: 1;
+  transform: scale(1.35);
+}
+
+/* Accessibility: respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .noise-overlay,
+  .ambient-blob,
+  .screen-flicker {
+    animation: none !important;
+    transition: none !important;
+  }
+  .ambient-blob {
+    opacity: 0.05 !important;
+  }
+  * {
+    animation-delay: 0s !important;
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
+  }
+}
