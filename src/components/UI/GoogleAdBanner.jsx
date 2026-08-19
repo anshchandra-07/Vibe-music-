@@ -4,12 +4,11 @@ import { X, ExternalLink, Sparkles } from 'lucide-react';
 const GoogleAdBanner = ({
   client = "ca-pub-3607991187719913",
   slot = "6300978111",
-  format = "auto",
+  format = "horizontal",
   responsive = "true",
   className = "",
   style = {}
 }) => {
-  const [adLoaded, setAdLoaded] = useState(false);
   const [adError, setAdError] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
   const adRef = useRef(null);
@@ -29,7 +28,6 @@ const GoogleAdBanner = ({
     try {
       if (window.adsbygoogle) {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
-        setAdLoaded(true);
       } else {
         const timeout = setTimeout(() => {
           if (!window.adsbygoogle) {
@@ -48,20 +46,20 @@ const GoogleAdBanner = ({
 
   return (
     <div 
-      className={`w-full max-w-[960px] mx-auto my-1 sm:my-2 px-1 sm:px-2 transition-all duration-300 ${className}`}
+      className={`w-full max-w-[960px] mx-auto my-0.5 sm:my-1 px-1 sm:px-2 transition-all duration-300 ${className}`}
       style={style}
     >
-      <div className="relative glass-panel rounded-xl p-1.5 sm:p-3 border border-white/10 shadow-md overflow-hidden flex flex-row items-center justify-between gap-2 text-xs font-mono-retro">
+      <div className="relative glass-panel rounded-xl p-1 sm:p-2 border border-white/10 shadow-md overflow-hidden flex flex-row items-center justify-between gap-2 text-xs font-mono-retro max-h-[52px] sm:max-h-[64px]">
         
-        {/* Glowing top line */}
+        {/* Glowing indicator line */}
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500/40 to-transparent" />
 
-        {/* AdSense Live Slot Container */}
+        {/* AdSense Live Slot Container - STRICT MAX HEIGHT to prevent viewport push */}
         {!adError ? (
-          <div className="w-full flex justify-center items-center overflow-hidden min-h-[40px] sm:min-h-[60px]" ref={adRef}>
+          <div className="w-full flex justify-center items-center overflow-hidden max-h-[46px] sm:max-h-[56px]" ref={adRef}>
             <ins
               className="adsbygoogle"
-              style={{ display: 'block', width: '100%', textAlign: 'center', ...style }}
+              style={{ display: 'inline-block', width: '100%', maxHeight: '50px', overflow: 'hidden', textAlign: 'center', ...style }}
               data-ad-client={client}
               data-ad-slot={slot}
               data-ad-format={format}
@@ -69,7 +67,7 @@ const GoogleAdBanner = ({
             />
           </div>
         ) : (
-          /* Sleek Micro Fallback Banner for Mobile & Desktop */
+          /* Sleek Micro Fallback Banner */
           <div className="w-full flex flex-row items-center justify-between gap-2 py-0.5 px-1 select-none">
             <div className="flex items-center gap-2 min-w-0">
               <span className="p-1 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0">
@@ -81,7 +79,7 @@ const GoogleAdBanner = ({
                     AD
                   </span>
                   <span className="text-[11px] sm:text-xs font-semibold text-white truncate">
-                    Vibe Radio Premium
+                    Vibe Premium
                   </span>
                 </div>
               </div>

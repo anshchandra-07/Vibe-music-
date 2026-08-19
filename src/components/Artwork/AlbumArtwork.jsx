@@ -66,10 +66,10 @@ const AlbumArtwork = ({ children }) => {
   };
 
   return (
-    <div className="relative flex items-center justify-center w-full max-w-[170px] xs:max-w-[200px] sm:max-w-[340px] aspect-square my-2 sm:my-6 mx-auto z-10">
+    <div className="relative flex items-center justify-center w-full max-w-[150px] xs:max-w-[175px] sm:max-w-[320px] aspect-square my-1 sm:my-6 mx-auto z-10 shrink-0">
       
       {/* Dynamic Visualizer Canvas Wrapper */}
-      <div className="absolute inset-[-25px] sm:inset-[-60px] pointer-events-none select-none z-0">
+      <div className="absolute inset-[-20px] sm:inset-[-60px] pointer-events-none select-none z-0">
         {children}
       </div>
 
@@ -89,17 +89,17 @@ const AlbumArtwork = ({ children }) => {
       >
         {/* Dynamic Glow Shadow behind Artwork */}
         <div 
-          className="absolute inset-0 rounded-2xl blur-xl sm:blur-3xl opacity-60 transition-all duration-[3000ms] -z-10"
+          className="absolute inset-0 rounded-2xl blur-lg sm:blur-3xl opacity-60 transition-all duration-[3000ms] -z-10"
           style={{ 
             backgroundColor: glowColor,
-            boxShadow: `0 0 45px 6px ${glowColor}`
+            boxShadow: `0 0 35px 4px ${glowColor}`
           }}
         />
 
         {/* 3D Vinyl Record Disc (slides out when playing) */}
         <motion.div
           initial={{ x: 0 }}
-          animate={{ x: isPlaying ? (isMobile ? '16%' : '38%') : 0 }}
+          animate={{ x: isPlaying ? (isMobile ? '15%' : '38%') : 0 }}
           transition={{ type: 'spring', stiffness: 100, damping: 22 }}
           className="absolute top-[8%] bottom-[8%] right-0 aspect-square rounded-full z-0 pointer-events-none"
         >
