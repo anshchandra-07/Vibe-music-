@@ -29,6 +29,16 @@
   }
 }
 
+/* Strict Google AdSense container height limits to prevent mobile viewport layout overflow */
+.adsbygoogle,
+.google-auto-placed,
+ins.adsbygoogle,
+iframe[id^="aswift_"],
+iframe[name^="goog_"] {
+  max-height: 52px !important;
+  overflow: hidden !important;
+}
+
 @layer utilities {
   .font-mono-retro {
     font-family: 'Share Tech Mono', monospace;

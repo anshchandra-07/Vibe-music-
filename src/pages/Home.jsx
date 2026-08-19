@@ -113,7 +113,7 @@ const Home = () => {
   });
 
   return (
-    <div className="relative w-full h-[100dvh] min-h-[100dvh] overflow-hidden flex flex-col justify-between z-10 select-none">
+    <div className="relative w-full h-[100dvh] min-h-[100dvh] overflow-hidden flex flex-col justify-between z-10 select-none pb-2 sm:pb-0">
       {/* 1. Cinematic Background Overlays */}
       <Background />
 
@@ -151,12 +151,12 @@ const Home = () => {
             : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
       >
-        {/* Responsive Google Ads Banner */}
+        {/* Responsive Google Ads Banner with strict max height constraint */}
         {!isFullscreen && (
           <GoogleAdBanner 
             client="ca-pub-3607991187719913" 
             slot="6300978111" 
-            className="w-full"
+            className="w-full max-h-[44px] overflow-hidden"
           />
         )}
 
