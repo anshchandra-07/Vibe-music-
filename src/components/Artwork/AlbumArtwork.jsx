@@ -5,13 +5,12 @@ import { getDominantColor } from '../../utils/colorExtractor';
 
 const AlbumArtwork = ({ children }) => {
   const { currentTrack, isPlaying, currentStation } = useMusic();
-  const [glowColor, setGlowColor] = useState('rgba(244, 63, 94, 0.4)'); // Fallback Rose glow
+  const [glowColor, setGlowColor] = useState('rgba(244, 63, 94, 0.4)');
   const artworkRef = useRef(null);
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Track viewport size for mobile constraints
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 640);
@@ -21,7 +20,6 @@ const AlbumArtwork = ({ children }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Extract color whenever track changes
   useEffect(() => {
     let active = true;
 
@@ -49,7 +47,6 @@ const AlbumArtwork = ({ children }) => {
     };
   }, [currentTrack, currentStation]);
 
-  // Handle 3D Parallax Tilt on Mouse Move (Desktop only)
   const handleMouseMove = (e) => {
     if (isMobile || !artworkRef.current) return;
     
@@ -69,10 +66,10 @@ const AlbumArtwork = ({ children }) => {
   };
 
   return (
-    <div className="relative flex items-center justify-center w-full max-w-[220px] xs:max-w-[260px] sm:max-w-[340px] aspect-square my-4 sm:my-8 mx-auto z-10">
+    <div className="relative flex items-center justify-center w-full max-w-[170px] xs:max-w-[200px] sm:max-w-[340px] aspect-square my-2 sm:my-6 mx-auto z-10">
       
       {/* Dynamic Visualizer Canvas Wrapper */}
-      <div className="absolute inset-[-30px] sm:inset-[-60px] pointer-events-none select-none z-0">
+      <div className="absolute inset-[-25px] sm:inset-[-60px] pointer-events-none select-none z-0">
         {children}
       </div>
 
@@ -92,25 +89,23 @@ const AlbumArtwork = ({ children }) => {
       >
         {/* Dynamic Glow Shadow behind Artwork */}
         <div 
-          className="absolute inset-0 rounded-2xl blur-2xl sm:blur-3xl opacity-60 transition-all duration-[3000ms] -z-10"
+          className="absolute inset-0 rounded-2xl blur-xl sm:blur-3xl opacity-60 transition-all duration-[3000ms] -z-10"
           style={{ 
             backgroundColor: glowColor,
-            boxShadow: `0 0 60px 8px ${glowColor}`
+            boxShadow: `0 0 45px 6px ${glowColor}`
           }}
         />
 
         {/* 3D Vinyl Record Disc (slides out when playing) */}
         <motion.div
           initial={{ x: 0 }}
-          animate={{ x: isPlaying ? (isMobile ? '18%' : '38%') : 0 }}
+          animate={{ x: isPlaying ? (isMobile ? '16%' : '38%') : 0 }}
           transition={{ type: 'spring', stiffness: 100, damping: 22 }}
           className="absolute top-[8%] bottom-[8%] right-0 aspect-square rounded-full z-0 pointer-events-none"
         >
           {/* Rotating Disc */}
           <div className={`w-full h-full rounded-full relative overflow-hidden vinyl-record ${isPlaying ? 'animate-spin-slow' : ''}`}>
-            {/* Grooves overlay */}
             <div className="absolute inset-0 rounded-full vinyl-grooves w-full h-full" />
-            {/* Glare overlay */}
             <div className="absolute inset-0 rounded-full vinyl-glare w-full h-full" />
             
             {/* Center Label (Miniature album art) */}
@@ -121,7 +116,6 @@ const AlbumArtwork = ({ children }) => {
                 className="w-full h-full object-cover rounded-full select-none"
                 loading="eager"
               />
-              {/* Spindle hole */}
               <div className="absolute inset-[38%] rounded-full bg-[#030303] border border-black shadow-inner flex items-center justify-center">
                 <div className="w-[60%] h-[60%] rounded-full border border-zinc-700 bg-zinc-900" />
               </div>
@@ -130,10 +124,9 @@ const AlbumArtwork = ({ children }) => {
         </motion.div>
 
         {/* The Frame border (Glass effect) */}
-        <div className="w-full h-full rounded-2xl overflow-hidden glass-panel glass-panel-glow p-2 shadow-2xl flex items-center justify-center relative z-10">
+        <div className="w-full h-full rounded-2xl overflow-hidden glass-panel glass-panel-glow p-1.5 sm:p-2 shadow-2xl flex items-center justify-center relative z-10">
           <div className="w-full h-full rounded-xl overflow-hidden relative bg-black/40">
             
-            {/* Sliding animation for track art changes */}
             <AnimatePresence mode="wait">
               <motion.img
                 key={currentTrack?.id || 'empty'}
@@ -148,7 +141,6 @@ const AlbumArtwork = ({ children }) => {
               />
             </AnimatePresence>
 
-            {/* Vinyl Record overlay pattern overlay */}
             <div className="absolute inset-0 bg-gradient-to-tr from-black/30 via-transparent to-white/10 pointer-events-none" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_0%,rgba(0,0,0,0.6)_100%)] pointer-events-none" />
           </div>

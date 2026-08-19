@@ -41,7 +41,7 @@ const Home = () => {
 
   // Fullscreen Immersive State
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showUI, setShowUI] = useState(true); // Fades UI on mouse inactivity in fullscreen
+  const [showUI, setShowUI] = useState(true);
 
   // Fullscreen change handler
   useEffect(() => {
@@ -119,7 +119,7 @@ const Home = () => {
 
       {/* 2. Top Header Bar */}
       <div 
-        className={`transition-opacity duration-700 ease-in-out ${
+        className={`transition-opacity duration-700 ease-in-out shrink-0 ${
           showUI ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
@@ -130,7 +130,7 @@ const Home = () => {
       </div>
 
       {/* 3. Main Center Segment (Album Artwork & Visualizer) */}
-      <main className="flex-grow flex flex-col items-center justify-center relative p-2 sm:p-4 overflow-hidden">
+      <main className="flex-grow min-h-0 flex flex-col items-center justify-center relative p-1 sm:p-4 overflow-hidden">
         {/* Glowing Atmosphere Vibe Label (Fullscreen Mode indicator) */}
         {isFullscreen && !showUI && (
           <div className="absolute top-6 left-6 font-mono-retro text-[10px] text-white/20 uppercase tracking-[0.3em] transition-opacity duration-1000">
@@ -145,13 +145,13 @@ const Home = () => {
 
       {/* 4. Bottom Player Controls Deck & Google Ad Banner */}
       <footer 
-        className={`w-full max-w-[960px] mx-auto px-3 pb-3 sm:px-6 sm:pb-6 transition-all duration-700 ease-in-out flex flex-col gap-2 ${
+        className={`w-full max-w-[960px] mx-auto px-2 pb-2 sm:px-6 sm:pb-6 transition-all duration-700 ease-in-out flex flex-col gap-1 sm:gap-2 shrink-0 ${
           showUI 
             ? 'opacity-100 translate-y-0 pointer-events-auto' 
             : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
       >
-        {/* Responsive Google Ads Banner with User Publisher ID */}
+        {/* Responsive Google Ads Banner */}
         {!isFullscreen && (
           <GoogleAdBanner 
             client="ca-pub-3607991187719913" 
