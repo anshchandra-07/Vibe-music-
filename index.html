@@ -3,13 +3,76 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vibe - Retro Nostalgic Radio & Ambient Synthesizer</title>
-    <meta name="description" content="An interactive nostalgic internet radio and real-time generative synthesizer. Escape into lofi beats, ambient drones, and late-night visual environments." />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+    
+    <!-- Google AdSense Account & Verification Tag -->
+    <meta name="google-adsense-account" content="ca-pub-3607991187719913" />
+
+    <!-- Google AdSense Verification Code Snippet -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3607991187719913"
+     crossorigin="anonymous"></script>
+
+    <!-- Primary Meta Tags -->
+    <title>Vibe - Retro Internet Radio, Lofi Beats & Ambient Synthesizer</title>
+    <meta name="title" content="Vibe - Retro Internet Radio, Lofi Beats & Ambient Synthesizer" />
+    <meta name="description" content="Immerse yourself in Vibe: a production-quality, retro internet radio featuring lofi beats, ambient synthesizers, real-time visualizers, and curated mood stations." />
+    <meta name="keywords" content="lofi radio, internet radio, synthwave, ambient music, chill beats, nostalgic radio, online music player, generative synthesizer, music visualizer" />
+    <meta name="author" content="Vibe Team" />
+    <meta name="theme-color" content="#050505" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://vibe-music-jet.vercel.app/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://vibe-music-jet.vercel.app/" />
+    <meta property="og:title" content="Vibe - Retro Internet Radio & Ambient Synthesizer" />
+    <meta property="og:description" content="Stream lofi beats, ambient soundscapes, and generative audio in an interactive nostalgic radio environment." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=1200&auto=format&fit=crop&q=80" />
+    <meta property="og:site_name" content="Vibe Radio" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://vibe-music-jet.vercel.app/" />
+    <meta property="twitter:title" content="Vibe - Retro Internet Radio & Ambient Synthesizer" />
+    <meta property="twitter:description" content="Stream lofi beats, ambient soundscapes, and generative audio in an interactive nostalgic radio environment." />
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=1200&auto=format&fit=crop&q=80" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "name": "Vibe Radio",
+          "url": "https://vibe-music-jet.vercel.app/",
+          "description": "An interactive nostalgic internet radio and real-time generative synthesizer.",
+          "applicationCategory": "MultimediaApplication",
+          "operatingSystem": "All",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          }
+        },
+        {
+          "@type": "RadioStation",
+          "name": "Vibe Retro Radio",
+          "url": "https://vibe-music-jet.vercel.app/",
+          "genre": ["Lofi", "Ambient", "Synthwave", "Chillout"],
+          "description": "24/7 stereophonic transmission of aesthetic lofi beats and ambient atmospheres."
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
-

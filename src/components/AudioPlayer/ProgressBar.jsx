@@ -19,11 +19,11 @@ const ProgressBar = () => {
 
   if (currentTrack?.isStream) {
     return (
-      <div className="w-full flex flex-col items-center gap-1.5 py-2 select-none">
+      <div className="w-full flex flex-col items-center gap-1.5 py-1.5 select-none">
         {/* Live Broadcast Indicator */}
         <div className="w-full flex items-center justify-between text-xs font-mono-retro text-zinc-500">
           <div className="flex items-center gap-2">
-            <span className={`inline-block w-2 h-2 rounded-full bg-red-500 ${isPlaying ? 'animate-pulse' : ''}`} />
+            <span className={`inline-block w-2 h-2 rounded-full bg-red-500 ${isPlaying ? 'animate-pulse' : ''}`} aria-hidden="true" />
             <span className="text-red-400 font-semibold tracking-wider">LIVE STREAM</span>
           </div>
           <div className="tracking-wide text-zinc-400">TUNING INTERNET RADIO</div>
@@ -66,7 +66,7 @@ const ProgressBar = () => {
       <div className="w-full relative group flex items-center">
         {/* Background track fill helper (colored overlay) */}
         <div 
-          className="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-white pointer-events-none rounded-l"
+          className="absolute left-0 top-1/2 -translate-y-1/2 h-1.5 bg-white pointer-events-none rounded-l"
           style={{ 
             width: `${percent}%`,
             boxShadow: '0 0 6px rgba(255, 255, 255, 0.4)',
@@ -80,7 +80,12 @@ const ProgressBar = () => {
           max={duration || 100}
           value={currentTime}
           onChange={handleSeekChange}
-          className="progress-slider w-full h-8 cursor-pointer relative z-10"
+          className="progress-slider w-full h-6 sm:h-8 cursor-pointer relative z-10"
+          aria-label="Track progress slider"
+          aria-valuemin={0}
+          aria-valuemax={Math.floor(duration || 0)}
+          aria-valuenow={Math.floor(currentTime || 0)}
+          aria-valuetext={`${formatTime(currentTime)} of ${formatTime(duration)}`}
         />
       </div>
     </div>

@@ -9,6 +9,7 @@ import Background from '../components/Layout/Background';
 import AlbumArtwork from '../components/Artwork/AlbumArtwork';
 import AudioVisualizer from '../components/Visualizer/AudioVisualizer';
 import MusicPlayer from '../components/AudioPlayer/MusicPlayer';
+import GoogleAdBanner from '../components/UI/GoogleAdBanner';
 
 // Drawer Panels
 import StationPanel from '../components/Stations/StationPanel';
@@ -63,11 +64,10 @@ const Home = () => {
       setShowUI(true);
       clearTimeout(timeoutId);
       
-      // Only hide if music is playing
       if (isPlaying) {
         timeoutId = setTimeout(() => {
           setShowUI(false);
-        }, 3000); // 3 seconds timeout
+        }, 3000);
       }
     };
 
@@ -113,7 +113,7 @@ const Home = () => {
   });
 
   return (
-    <div className="relative w-full h-screen overflow-hidden flex flex-col justify-between z-10 select-none">
+    <div className="relative w-full h-[100dvh] min-h-[100dvh] overflow-hidden flex flex-col justify-between z-10 select-none">
       {/* 1. Cinematic Background Overlays */}
       <Background />
 
@@ -130,7 +130,7 @@ const Home = () => {
       </div>
 
       {/* 3. Main Center Segment (Album Artwork & Visualizer) */}
-      <main className="flex-grow flex items-center justify-center relative p-4">
+      <main className="flex-grow flex flex-col items-center justify-center relative p-2 sm:p-4 overflow-hidden">
         {/* Glowing Atmosphere Vibe Label (Fullscreen Mode indicator) */}
         {isFullscreen && !showUI && (
           <div className="absolute top-6 left-6 font-mono-retro text-[10px] text-white/20 uppercase tracking-[0.3em] transition-opacity duration-1000">
@@ -143,21 +143,30 @@ const Home = () => {
         </AlbumArtwork>
       </main>
 
-      {/* 4. Bottom Player Controls Deck */}
-      <div 
-        className={`w-full max-w-[960px] mx-auto p-4 sm:p-6 transition-all duration-700 ease-in-out ${
+      {/* 4. Bottom Player Controls Deck & Google Ad Banner */}
+      <footer 
+        className={`w-full max-w-[960px] mx-auto px-3 pb-3 sm:px-6 sm:pb-6 transition-all duration-700 ease-in-out flex flex-col gap-2 ${
           showUI 
             ? 'opacity-100 translate-y-0 pointer-events-auto' 
             : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
       >
+        {/* Responsive Google Ads Banner with User Publisher ID */}
+        {!isFullscreen && (
+          <GoogleAdBanner 
+            client="ca-pub-3607991187719913" 
+            slot="6300978111" 
+            className="w-full"
+          />
+        )}
+
         <MusicPlayer 
           onToggleQueue={() => setIsQueueOpen(prev => !prev)}
           onToggleStations={() => setIsStationsOpen(prev => !prev)}
           isFullscreen={isFullscreen}
           onToggleFullscreen={toggleFullscreen}
         />
-      </div>
+      </footer>
 
       {/* 5. Sidebar Drawers (AnimatePresence transitions) */}
       <AnimatePresence>

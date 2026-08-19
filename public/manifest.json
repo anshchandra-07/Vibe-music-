@@ -1,0 +1,18 @@
+{
+  "short_name": "Vibe Radio",
+  "name": "Vibe - Retro Internet Radio & Lofi Synthesizer",
+  "description": "An interactive nostalgic internet radio and real-time generative synthesizer with lofi beats, ambient drones, and late-night visual environments.",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "display": "standalone",
+  "orientation": "portrait"
+}
